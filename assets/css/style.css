@@ -1,9 +1,5 @@
 /**
-* Template Name: DevFolio
-* Template URL: https://bootstrapmade.com/devfolio-bootstrap-portfolio-html-template/
-* Updated: Mar 17 2024 with Bootstrap v5.3.3
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
+*
 */
 
 /*--------------------------------------------------------------
@@ -21,18 +17,21 @@ h4,
 h5,
 h6 {
   color: #1e1e1e;
+  font-family: "Dosis", sans-serif;
 }
 
 a {
   color: #1e1e1e;
   text-decoration: none;
   transition: all 0.5s ease-in-out;
+  font-family: "Dosis", sans-serif;
 }
 
 a:hover {
   color: #0078ff;
   text-decoration: none;
   transition: all 0.5s ease-in-out;
+  font-family: "Dosis", sans-serif;
 }
 
 .p-r {
@@ -773,6 +772,7 @@ a:hover {
 .hero .hero-subtitle {
   font-size: 1.5rem;
   font-weight: 600;
+  font-family: "Dosis", sans-serif;
 }
 
 @media (min-width: 768px) {
@@ -837,6 +837,11 @@ a:hover {
   margin-left: 10px;
 }
 
+.about-mf .lead2 {
+  font-family: "Dosis", sans-serif;
+  font-weight: 500;
+}
+
 @media (min-width: 767px) {
   .about-mf .box-pl2 {
     margin-top: 3rem;
@@ -859,6 +864,68 @@ a:hover {
   height: 0.7rem;
   background-color: #0078ff;
 }
+
+.skills-mf span {
+  background-color: #e2eefc;
+  display: inline-flex;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 10px;
+  color: #0078ff;
+}
+
+/*--------------------------------------------------------------
+# Timeline
+--------------------------------------------------------------*/
+
+.timeline-wrapper {
+  position: relative;
+  padding: 22px 0;
+}
+.timeline-wrapper:last-child:before {
+  height: 0;
+}
+.timeline-wrapper:before {
+  content: "";
+  background: #474559;
+  width: 3px;
+  height: 100%;
+  position: absolute;
+  left: 38px;
+}
+
+.timeline-yr {
+  background: #474559;
+  border-radius: 100%;
+  position: absolute;
+  width: 75px;
+  height: 75px;
+  line-height: 75px;
+  text-align: center;
+}
+.timeline-yr span {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  display: block;
+  line-height: 75px;
+}
+
+.timeline-info {
+  display: inline-block;
+  vertical-align: top;
+  max-width: 432px;
+  margin-left: 6em;
+}
+.timeline-info small {
+  color: #474559;
+  font-size: 16px;
+  font-weight: bold;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 15px;
+}
+
 
 /*--------------------------------------------------------------
 # Services

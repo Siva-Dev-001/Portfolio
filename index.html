@@ -10,8 +10,11 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="assets/img/favicon.jpg" rel="icon">
+  <link href="assets/img/apple-touch-icon.jpg" rel="apple-touch-icon">
+
+   <!-- Google Fonts -->
+   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Dosis:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -27,7 +30,7 @@
   ======================================================== -->
 </head>
 
-<body>
+<body oncontextmenu="return false" onkeypress="return false" onkeydown="return false" onkeyup="return false"> <!---->
 
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top">
@@ -87,13 +90,18 @@
   <main id="main">
 
     <!-- ======= About Section ======= -->
-    <!-- <section id="about" class="about-mf sect-pt4 route">
+    <section id="about" class="about-mf sect-pt4 route">
       <div class="container">
         <div class="row">
           <div class="col-sm-12">
             <div class="box-shadow-full">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4 mt-3">
+                  <div class="about-img pt-4 pt-md-0">
+                    <img src="assets/img/about.jpg" class="img-fluid rounded b-shadow-a" alt="">
+                  </div>
+                </div>
+                <!-- <div class="col-md-6">
                   <div class="row">
                     <div class="col-sm-6 col-md-5">
                       <div class="about-img">
@@ -128,29 +136,22 @@
                       <div class="progress-bar" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                   </div>
-                </div>
-                <div class="col-md-6">
+                </div> -->
+                <div class="col-md-7">
                   <div class="about-me pt-4 pt-md-0">
                     <div class="title-box-2">
                       <h5 class="title-left">
                         About me
                       </h5>
                     </div>
-                    <p class="lead">
-                      Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Curabitur arcu erat, accumsan id
-                      imperdiet et, porttitor
-                      at sem. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Nulla
-                      porttitor accumsan tincidunt.
+                    <p class="lead2">
+                      Welcome to my portfolio! With over 2 years of experience in Python full stack development, I am passionate about crafting innovative solutions and creating seamless user experiences. 
                     </p>
-                    <p class="lead">
-                      Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vivamus suscipit tortor eget felis
-                      porttitor volutpat. Vestibulum
-                      ac diam sit amet quam vehicula elementum sed sit amet dui. porttitor at sem.
+                    <p class="lead2">
+                      My journey in the world of programming began with a curiosity to explore the endless possibilities of technology, and since then, I have been on a continuous quest to enhance my skills and contribute to meaningful projects.
                     </p>
-                    <p class="lead">
-                      Nulla porttitor accumsan tincidunt. Quisque velit nisi, pretium ut lacinia in, elementum id enim.
-                      Nulla porttitor accumsan
-                      tincidunt. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.
+                    <p class="lead2">
+                      Driven by a blend of creativity and technical expertise, I thrive in dynamic environments where I can collaborate with diverse teams to turn ideas into reality. Whether it's building robust web applications, optimizing backend processes, or designing intuitive user interfaces, I approach each project with dedication and a commitment to excellence.
                     </p>
                   </div>
                 </div>
@@ -159,11 +160,149 @@
           </div>
         </div>
       </div>
-    </section> -->
+    </section>
     <!-- End About Section -->
 
+    <!-- FEATURES -->
+    <section class="resume py-5 d-lg-flex justify-content-center align-items-center" id="resume">
+      <div class="container">
+        
+
+          <div class="row">
+
+              <div class="col-lg-6 col-12">
+                <h2 class="mb-4">Experiences</h2>
+
+                  <div class="timeline">
+                    <div class="timeline-wrapper">
+                      <div class="timeline-yr">
+                          <span>2023</span>
+                      </div>
+                      <div class="timeline-info">
+                          <h3><span>Python Full Stack Developer</span><small>Assurify</small></h3>
+                          <p>An Insure-Tech startup company, wants to distribute their plans to customer via B2C(Assure) , B2B (Merchant), B2B2C (Ecom) and monitered the same by Assurify's Admin Portal</p>
+                      </div>
+                  </div>
+
+                      <div class="timeline-wrapper">
+                           <div class="timeline-yr">
+                                <span>2022</span>
+                           </div>
+                           <div class="timeline-info">
+                                <h3><span>Python Full Stack Developer</span><small>Bigfix</small></h3>
+                                <p>A Consumer-Tech Startup Company, wants to provide services for consumer electronics via B2C (Vault), B2B (Warrantify) and monitered the same by Admin Portal</p>
+                           </div>
+                      </div>
+
+                      <!-- 
+
+                      <div class="timeline-wrapper">
+                          <div class="timeline-yr">
+                              <span>2016</span>
+                          </div>
+                          <div class="timeline-info">
+                              <h3><span>UI Freelancer</h3>
+                              <p>Sed fringilla vitae enim sit amet cursus. Sed cursus dictum tortor quis pharetra. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+                          </div>
+                      </div>
+                      
+                      <div class="timeline-wrapper">
+                          <div class="timeline-yr">
+                              <span>2014</span>
+                          </div>
+                          <div class="timeline-info">
+                              <h3><span>Junior Designer<small>Crafted Co.</small></h3>
+                              <p>Cras scelerisque scelerisque condimentum. Nullam at volutpat mi. Nunc auctor ipsum eget magna consequat viverra.</p>
+                          </div>
+                      </div> -->
+
+                  </div>
+              </div>
+
+              <div class="col-lg-6 col-12">
+                <h2 class="mb-4 mobile-mt-2">Education</h2>
+
+                  <div class="timeline">
+                      <div class="timeline-wrapper">
+                           <div class="timeline-yr">
+                                <span>2020</span>
+                           </div>
+                           <div class="timeline-info">
+                                <h3><span>Bachelor of Engineer (CSE)</span><small>Anna University</small></h3>
+                                <p>Equipped with a solid foundation in computer science principles and engineering methodologies, emphasizing practical application and problem-solving skills.</p>
+                           </div>
+                      </div>
+
+                      <!-- <div class="timeline-wrapper">
+                          <div class="timeline-yr">
+                              <span>2015</span>
+                          </div>
+                          <div class="timeline-info">
+                              <h3><span>User Interfaces</span><small>Creative Agency</small></h3>
+                              <p><a rel="nofollow" href="https://www.facebook.com/tooplate">Tooplate</a> is a great website to download HTML templates without any login or email.</p>
+                          </div>
+                      </div>
+                      
+                      <div class="timeline-wrapper">
+                          <div class="timeline-yr">
+                              <span>2013</span>
+                          </div>
+                          <div class="timeline-info">
+                              <h3><span>Artwork Design</span><small>New Art School</small></h3>
+                              <p>You can freely use Tooplate's templates for your business or personal sites. You cannot redistribute this template without a permission.</p>
+                          </div>
+                      </div> -->
+
+                  </div>
+              </div>
+              
+          </div>
+      </div>
+  </section>
+
+  <section id="skills" class="skills-mf pt-5 mb-4 route">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="title-box text-center">
+            <h3 class="title-a">
+              Skills
+            </h3>
+            <p class="subtitle-a">
+              <!-- Lorem ipsum, dolor sit amet consectetur adipisicing elit. -->
+            </p>
+            <div class="line-mf"></div>
+          </div>
+        </div>
+      </div>
+      <div class="">
+        <h4>App Development</h4>
+        <span>Postman API</span><span>MySQL</span><span>Django</span>
+        <span>Bootstrap</span><span>Python</span><span>HTML5</span><span>Javascript</span><span>CSS3</span>
+        <span>RESTful APIs</span>
+        
+        <h4 class="mt-3">IDEs</h4>
+        <span>Visual Studio Code</span><span>Google Colab</span><span>Jupiter Notebook</span><span>Python IDLE</span>
+        
+        <h4 class="mt-3">Cloud Computing</h4>
+        <span>Google Cloud Platform</span><span>Firebase</span>
+        <span>Amazon S3</span><span>Amazon SES</span><span>AWS Bastion</span><span>Amazon VPC</span><span>Amazon EC2</span>
+        <span>Azure Devops</span><span>Azure VM</span><span>Azure Bastion</span>
+        
+        <h4 class="mt-3">SEO</h4>
+        <span>Google Search Console</span><span>Bing Webmaster</span><span>Microsoft Clarity</span><span>Google Lighthouse</span>
+        <span>Pagespeed Insights</span><span>Semrush</span><span>ChatGPT</span>
+        
+        <h4 class="mt-3">Other Tools &amp; Technlogies</h4>
+        <span>Prompt Engineering</span><span>Microsoft Excel</span><span>Canva</span><span>Meta Business Suite</span><span>Cashfree (Payments)</span>
+        <span>Servtel (IVR)</span>
+      </div> 
+    </div>
+  </section>
+
+
     <!-- ======= Services Section ======= -->
-    <section id="services" class="services-mf pt-5 route">
+    <!-- <section id="services" class="services-mf pt-5 route">
       <div class="container">
         <div class="row">
           <div class="col-sm-12">
@@ -271,7 +410,8 @@
           </div>
         </div>
       </div>
-    </section><!-- End Services Section -->
+    </section> -->
+    <!-- End Services Section -->
 
     <!-- ======= Counter Section ======= -->
     <div class="section-counter paralax-mf bg-image" style="background-image: url(assets/img/counters-bg.jpg)">
@@ -336,7 +476,7 @@
                 Certificates
               </h3>
               <p class="subtitle-a">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                <!-- Lorem ipsum, dolor sit amet consectetur adipisicing elit. -->
               </p>
               <div class="line-mf"></div>
             </div>
@@ -360,7 +500,7 @@
                   </div>
                   <div class="col-sm-4">
                     <div class="w-like">
-                      <a href="portfolio-details.html"> <span class="bi bi-plus-circle"></span></a>
+                      <a href="#"> <span class="bi bi-plus-circle"></span></a>
                     </div>
                   </div>
                 </div>
@@ -384,7 +524,7 @@
                   </div>
                   <div class="col-sm-4">
                     <div class="w-like">
-                      <a href="portfolio-details.html"> <span class="bi bi-plus-circle"></span></a>
+                      <a href="#"> <span class="bi bi-plus-circle"></span></a>
                     </div>
                   </div>
                 </div>
@@ -408,7 +548,7 @@
                   </div>
                   <div class="col-sm-4">
                     <div class="w-like">
-                      <a href="portfolio-details.html"> <span class="bi bi-plus-circle"></span></a>
+                      <a href="#"> <span class="bi bi-plus-circle"></span></a>
                     </div>
                   </div>
                 </div>
@@ -432,7 +572,7 @@
                   </div>
                   <div class="col-sm-4">
                     <div class="w-like">
-                      <a href="portfolio-details.html"> <span class="bi bi-plus-circle"></span></a>
+                      <a href="#"> <span class="bi bi-plus-circle"></span></a>
                     </div>
                   </div>
                 </div>
@@ -456,7 +596,7 @@
                   </div>
                   <div class="col-sm-4">
                     <div class="w-like">
-                      <a href="portfolio-details.html"> <span class="bi bi-plus-circle"></span></a>
+                      <a href="#"> <span class="bi bi-plus-circle"></span></a>
                     </div>
                   </div>
                 </div>
@@ -480,7 +620,7 @@
                   </div>
                   <div class="col-sm-4">
                     <div class="w-like">
-                      <a href="portfolio-details.html"> <span class="bi bi-plus-circle"></span></a>
+                      <a href="#"> <span class="bi bi-plus-circle"></span></a>
                     </div>
                   </div>
                 </div>
@@ -555,7 +695,7 @@
                     AI Workshop & GWR
                   </h3>
                   <p class="subtitle-a">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    <!-- Lorem ipsum, dolor sit amet consectetur adipisicing elit. -->
                   </p>
                   <div class="line-mf"></div>
                 </div>
@@ -579,7 +719,7 @@
                       </div>
                       <div class="col-sm-4">
                         <div class="w-like">
-                          <a href="portfolio-details.html"> <span class="bi bi-plus-circle"></span></a>
+                          <a href="#"> <span class="bi bi-plus-circle"></span></a>
                         </div>
                       </div>
                     </div>
@@ -606,7 +746,7 @@
                       </div>
                       <div class="col-sm-4">
                         <div class="w-like">
-                          <a href="portfolio-details.html"> <span class="bi bi-plus-circle"></span></a>
+                          <a href="#"> <span class="bi bi-plus-circle"></span></a>
                         </div>
                       </div>
                     </div>
@@ -630,7 +770,7 @@
                       </div>
                       <div class="col-sm-4">
                         <div class="w-like">
-                          <a href="portfolio-details.html"> <span class="bi bi-plus-circle"></span></a>
+                          <a href="#"> <span class="bi bi-plus-circle"></span></a>
                         </div>
                       </div>
                     </div>
@@ -654,7 +794,7 @@
                       </div>
                       <div class="col-sm-4">
                         <div class="w-like">
-                          <a href="portfolio-details.html"> <span class="bi bi-plus-circle"></span></a>
+                          <a href="#"> <span class="bi bi-plus-circle"></span></a>
                         </div>
                       </div>
                     </div>
@@ -678,7 +818,7 @@
                 Projects
               </h3>
               <p class="subtitle-a">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                <!-- Lorem ipsum, dolor sit amet consectetur adipisicing elit. -->
               </p>
               <div class="line-mf"></div>
             </div>
@@ -688,30 +828,28 @@
           <div class="col-md-4">
             <div class="card card-blog">
               <div class="card-img">
-                <a href="blog-single.html"><img src="assets/img/post-1.jpg" alt="" class="img-fluid"></a>
+                <a href=""><img src="assets/img/project-1.png" alt="" class="img-fluid"></a>
               </div>
               <div class="card-body">
                 <div class="card-category-box">
                   <div class="card-category">
-                    <h6 class="category">Travel</h6>
+                    <h6 class="category">Education</h6>
                   </div>
                 </div>
-                <h3 class="card-title"><a href="blog-single.html">See more ideas about Travel</a></h3>
+                <h3 class="card-title"><a href="#">CGPA Calculator using Tkinter</a></h3>
                 <p class="card-description">
-                  Proin eget tortor risus. Pellentesque in ipsum id orci porta dapibus. Praesent sapien massa, convallis
-                  a pellentesque nec,
-                  egestas non nisi.
+                  A simple CGPA Calculator that calculates the percentage of GPA & CGPA of each semester based on the grades obtained using Tkinter.
                 </p>
               </div>
               <div class="card-footer">
                 <div class="post-author">
                   <a href="#">
-                    <img src="assets/img/testimonial-2.jpg" alt="" class="avatar rounded-circle">
-                    <span class="author">Morgan Freeman</span>
+                    <img src="assets/img/my-profile.jpg" alt="" class="avatar rounded-circle">
+                    <span class="author">Siva Ramu</span>
                   </a>
                 </div>
                 <div class="post-date">
-                  <span class="bi bi-clock"></span> 10 min
+                  <span class="bi bi-briefcase"></span> 2020
                 </div>
               </div>
             </div>
@@ -719,30 +857,28 @@
           <div class="col-md-4">
             <div class="card card-blog">
               <div class="card-img">
-                <a href="blog-single.html"><img src="assets/img/post-2.jpg" alt="" class="img-fluid"></a>
+                <a href=""><img src="assets/img/project-2.jpg" alt="" class="img-fluid"></a>
               </div>
               <div class="card-body">
                 <div class="card-category-box">
                   <div class="card-category">
-                    <h6 class="category">Web Design</h6>
+                    <h6 class="category">Data Science</h6>
                   </div>
                 </div>
-                <h3 class="card-title"><a href="blog-single.html">See more ideas about Travel</a></h3>
+                <h3 class="card-title"><a href="#">3D Thermal State Detection System</a></h3>
                 <p class="card-description">
-                  Proin eget tortor risus. Pellentesque in ipsum id orci porta dapibus. Praesent sapien massa, convallis
-                  a pellentesque nec,
-                  egestas non nisi.
+                  Temperature data with 3D visualization techniques using Matplotlib, you can create engaging and informative visualizations that enable users to explore temperature distributions in different spatial and temporal dimensions.
                 </p>
               </div>
               <div class="card-footer">
                 <div class="post-author">
                   <a href="#">
-                    <img src="assets/img/testimonial-2.jpg" alt="" class="avatar rounded-circle">
-                    <span class="author">Morgan Freeman</span>
+                    <img src="assets/img/my-profile.jpg" alt="" class="avatar rounded-circle">
+                    <span class="author">Siva Ramu</span>
                   </a>
                 </div>
                 <div class="post-date">
-                  <span class="bi bi-clock"></span> 10 min
+                  <span class="bi bi-briefcase"></span> 2020
                 </div>
               </div>
             </div>
@@ -750,30 +886,28 @@
           <div class="col-md-4">
             <div class="card card-blog">
               <div class="card-img">
-                <a href="blog-single.html"><img src="assets/img/post-3.jpg" alt="" class="img-fluid"></a>
+                <a href="#"><img src="assets/img/project-3.png" alt="" class="img-fluid"></a>
               </div>
               <div class="card-body">
                 <div class="card-category-box">
                   <div class="card-category">
-                    <h6 class="category">Web Design</h6>
+                    <h6 class="category">NLP</h6>
                   </div>
                 </div>
-                <h3 class="card-title"><a href="blog-single.html">See more ideas about Travel</a></h3>
+                <h3 class="card-title"><a href="#">Sol Sokkataan using unicode and Streamlit</a></h3>
                 <p class="card-description">
-                  Proin eget tortor risus. Pellentesque in ipsum id orci porta dapibus. Praesent sapien massa, convallis
-                  a pellentesque nec,
-                  egestas non nisi.
+                  The code provided primarily focuses on text processing and natural language processing (NLP) for the Tamil language. It involves handling Unicode characters, generating permutations of Tamil letters, checking for meaningful Tamil words, and presenting the results in a user-friendly interface using Streamlit.
                 </p>
               </div>
               <div class="card-footer">
                 <div class="post-author">
                   <a href="#">
-                    <img src="assets/img/testimonial-2.jpg" alt="" class="avatar rounded-circle">
-                    <span class="author">Morgan Freeman</span>
+                    <img src="assets/img/my-profile.jpg" alt="" class="avatar rounded-circle">
+                    <span class="author">Siva Ramu</span>
                   </a>
                 </div>
                 <div class="post-date">
-                  <span class="bi bi-clock"></span> 10 min
+                  <span class="bi bi-briefcase"></span> 2020
                 </div>
               </div>
             </div>
@@ -783,6 +917,44 @@
     </section><!-- End Blog Section -->
 
     <!-- ======= Contact Section ======= -->
+    <section id="contact2" class="about-mf sect-pt4 route">
+      <!-- <div class="overlay-mf"></div> -->
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="title-box text-center">
+              <h3 class="title-a">
+                Contact
+              </h3>
+              <p class="subtitle-a">
+                <!-- Lorem ipsum, dolor sit amet consectetur adipisicing elit. -->
+              </p>
+              <div class="line-mf"></div>
+            </div>
+          </div>
+        </div>
+        <div class="box-shadow-full">
+        <div class="row">
+          <div class="col-sm-6 col-md-5">
+            <div class="about-img">
+              <img src="assets/img/document.jpg" class="img-fluid rounded b-shadow-a" alt="">
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-7">
+            <div class="about-info">
+              <p><span class="title-s">Name: </span> <span>Siva R</span></p>
+              <p><span class="title-s">Profile: </span> <span>Full stack developer</span></p>
+              <p><span class="title-s">Location: </span> <span>Chennai, Tamil Nadu</span></p>
+              <p><span class="title-s">Email: </span> <span><a href="mailto:ramusiva77@gmail.com" target="_blank">ramusiva77@gmail.com</a></span></p>
+              <p><span class="title-s">LinkedIn: </span> <span><a href="https://www.linkedin.com/in/siva-r-28b082174/" target="_blank">https://www.linkedin.com/in/siva-r-28b082174/</a></span></p>
+
+            </div>
+          </div>
+        </div>
+        </div>
+    </div>
+    </section>
+
     <!-- <section id="contact" class="paralax-mf footer-paralax bg-image sect-mt4 route" style="background-image: url(assets/img/overlay-bg.jpg)">
       <div class="overlay-mf"></div>
       <div class="container">
