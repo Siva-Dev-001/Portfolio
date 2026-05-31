@@ -219,18 +219,397 @@
   });
 
   /**
-   * Preloader
+   * Preloader - Optimized removal
    */
   let preloader = select('#preloader');
   if (preloader) {
+    const removePreloader = () => {
+      preloader.style.animation = 'preloaderFadeOut 0.6s ease-out forwards';
+      setTimeout(() => {
+        if (preloader.parentNode) {
+          preloader.remove();
+        }
+      }, 600);
+    };
+
+    // Remove after fixed time (2.8 seconds max)
+    const preloaderTimeout = setTimeout(removePreloader, 2800);
+
+    // Remove on page load (whichever comes first)
     window.addEventListener('load', () => {
-      preloader.remove()
+      clearTimeout(preloaderTimeout);
+      removePreloader();
     });
+
+    // Remove on DOM ready if all images are cached
+    if (document.readyState === 'complete') {
+      clearTimeout(preloaderTimeout);
+      removePreloader();
+    }
   }
 
   /**
-   * Initiate Pure Counter 
+   * Initiate Pure Counter
    */
   new PureCounter();
 
-})()
+  /**
+   * ALL Section - Filtering, Sorting, and Search
+   */
+  class PortfolioManager {
+    constructor() {
+      this.items = [];
+      this.filteredItems = [];
+      this.currentFilter = 'all';
+      this.currentSort = 'newest';
+      this.init();
+    }
+
+    init() {
+      this.collectItems();
+      this.setupEventListeners();
+      this.render();
+      this.observeItems();
+    }
+
+    collectItems() {
+      const certificates = Array.from(document.querySelectorAll('#work .work-box')).map((el, idx) => ({
+        id: `cert-${idx}`,
+        type: 'certificate',
+        title: el.querySelector('.w-title')?.textContent || 'Certificate',
+        category: el.querySelector('.w-ctegory')?.textContent || 'General',
+        date: el.querySelector('.w-date')?.textContent || '2024',
+        image: el.querySelector('.work-img img')?.src || '',
+        link: el.querySelector('a[data-gallery]')?.href || '#',
+        element: el
+      }));
+
+      const achievements = Array.from(document.querySelectorAll('#work2 .work-box')).map((el, idx) => ({
+        id: `ach-${idx}`,
+        type: 'achievement',
+        title: el.querySelector('.w-title')?.textContent || 'Achievement',
+        category: el.querySelector('.w-ctegory')?.textContent || 'General',
+        date: el.querySelector('.w-date')?.textContent || '2024',
+        image: el.querySelector('.work-img img')?.src || '',
+        link: el.querySelector('a[data-gallery]')?.href || '#',
+        element: el
+      }));
+
+      const projects = Array.from(document.querySelectorAll('#blog .card-blog')).map((el, idx) => ({
+        id: `proj-${idx}`,
+        type: 'project',
+        title: el.querySelector('.card-title')?.textContent || 'Project',
+        category: el.querySelector('.category')?.textContent || 'General',
+        date: el.querySelector('.post-date')?.textContent || '2024',
+        image: el.querySelector('.card-img img')?.src || '',
+        description: el.querySelector('.card-description')?.textContent || '',
+        link: el.querySelector('a')?.href || '#',
+        element: el
+      }));
+
+      this.items = [...certificates, ...achievements, ...projects];
+      this.filteredItems = [...this.items];
+    }
+
+    setupEventListeners() {
+      // Filter buttons
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          this.currentFilter = btn.dataset.filter;
+          this.applyFilters();
+        });
+      });
+
+      // Sort select
+      const sortSelect = document.querySelector('.sort-select');
+      if (sortSelect) {
+        sortSelect.addEventListener('change', (e) => {
+          this.currentSort = e.target.value;
+          this.applyFilters();
+        });
+      }
+    }
+
+    applyFilters() {
+      this.filteredItems = this.items.filter(item => {
+        if (this.currentFilter === 'all') return true;
+        return item.type === this.currentFilter;
+      });
+
+      this.sortItems();
+      this.render();
+    }
+
+    sortItems() {
+      switch(this.currentSort) {
+        case 'newest':
+          this.filteredItems.sort((a, b) => {
+            const yearA = parseInt(a.date.match(/\d{4}/) || 2024);
+            const yearB = parseInt(b.date.match(/\d{4}/) || 2024);
+            return yearB - yearA;
+          });
+          break;
+        case 'oldest':
+          this.filteredItems.sort((a, b) => {
+            const yearA = parseInt(a.date.match(/\d{4}/) || 2024);
+            const yearB = parseInt(b.date.match(/\d{4}/) || 2024);
+            return yearA - yearB;
+          });
+          break;
+        case 'title':
+          this.filteredItems.sort((a, b) => a.title.localeCompare(b.title));
+          break;
+      }
+    }
+
+    render() {
+      const grid = document.querySelector('.all-items-grid');
+      if (!grid) return;
+
+      if (this.filteredItems.length === 0) {
+        grid.innerHTML = '<div class="no-results">No items found for the selected filter.</div>';
+        return;
+      }
+
+      grid.innerHTML = this.filteredItems.map(item => `
+        <div class="item-card" data-type="${item.type}">
+          <div class="item-image">
+            <img src="${item.image}" alt="${item.title}" loading="lazy">
+            <span class="item-badge">${item.type}</span>
+          </div>
+          <div class="item-content">
+            <h3 class="item-title">${item.title}</h3>
+            <div class="item-date">
+              <i class="bi bi-calendar"></i> ${item.date}
+            </div>
+            <p class="item-description">${item.description || item.category}</p>
+            <div class="item-meta">
+              <div class="item-category">
+                <span class="item-tag">${item.category}</span>
+              </div>
+              <a href="${item.link}" class="btn btn-sm btn-outline-info" target="_blank">
+                <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    observeItems() {
+      const cards = document.querySelectorAll('.item-card');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, idx) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.style.animation = `slideInUp 0.6s ease-out forwards`;
+            }, idx * 100);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      cards.forEach(card => observer.observe(card));
+    }
+  }
+
+  /**
+   * Enhanced Skills Section - Interactive Features
+   */
+  class SkillsManager {
+    constructor() {
+      this.skillBars = document.querySelectorAll('.skill-bar-fill');
+      this.skillTags = document.querySelectorAll('.skill-tag');
+      this.init();
+    }
+
+    init() {
+      this.observeSkillBars();
+      this.setupSkillTagInteractions();
+      this.setupSkillSearch();
+    }
+
+    observeSkillBars() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const skillWidth = entry.target.style.getPropertyValue('--skill-width');
+            if (skillWidth) {
+              entry.target.style.width = skillWidth;
+            }
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+
+      this.skillBars.forEach(bar => observer.observe(bar));
+    }
+
+    setupSkillTagInteractions() {
+      this.skillTags.forEach(tag => {
+        tag.addEventListener('click', (e) => {
+          e.preventDefault();
+          tag.style.animation = 'none';
+          setTimeout(() => {
+            tag.style.animation = 'skillTagClick 0.5s ease';
+          }, 10);
+        });
+
+        tag.addEventListener('mouseenter', () => {
+          tag.style.transform = 'scale(1.05) translateY(-3px)';
+        });
+
+        tag.addEventListener('mouseleave', () => {
+          tag.style.transform = 'scale(1) translateY(0)';
+        });
+      });
+    }
+
+    setupSkillSearch() {
+      const skillContainer = document.querySelector('.skills-container');
+      if (!skillContainer) return;
+
+      const searchBox = document.createElement('div');
+      searchBox.style.cssText = `
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+        animation: fadeInDown 0.6s ease-out;
+      `;
+
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.placeholder = 'Search skills...';
+      input.style.cssText = `
+        padding: 0.75rem 1.5rem;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(0, 120, 255, 0.3);
+        color: #fff;
+        border-radius: 50px;
+        width: 100%;
+        max-width: 400px;
+        font-size: 1rem;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+      `;
+
+      input.addEventListener('focus', () => {
+        input.style.background = 'rgba(0, 120, 255, 0.15)';
+        input.style.borderColor = '#0078ff';
+        input.style.boxShadow = '0 0 20px rgba(0, 120, 255, 0.2)';
+      });
+
+      input.addEventListener('blur', () => {
+        input.style.background = 'rgba(255, 255, 255, 0.1)';
+        input.style.borderColor = 'rgba(0, 120, 255, 0.3)';
+        input.style.boxShadow = 'none';
+      });
+
+      input.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        this.skillTags.forEach(tag => {
+          if (tag.textContent.toLowerCase().includes(searchTerm)) {
+            tag.style.display = 'inline-block';
+            tag.style.opacity = '1';
+          } else {
+            tag.style.opacity = '0.3';
+          }
+        });
+      });
+
+      searchBox.appendChild(input);
+      skillContainer.insertBefore(searchBox, skillContainer.firstChild);
+    }
+  }
+
+  /**
+   * Timeline Animation
+   */
+  class TimelineAnimator {
+    constructor() {
+      this.timelineWrappers = document.querySelectorAll('.timeline-wrapper');
+      this.init();
+    }
+
+    init() {
+      this.observeTimelineItems();
+      this.setupHoverEffects();
+    }
+
+    observeTimelineItems() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, idx) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.style.animation = `slideInLeft 0.6s ease-out forwards`;
+              entry.target.style.opacity = '1';
+            }, idx * 100);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      this.timelineWrappers.forEach((wrapper, idx) => {
+        wrapper.style.opacity = '0';
+        observer.observe(wrapper);
+      });
+    }
+
+    setupHoverEffects() {
+      this.timelineWrappers.forEach(wrapper => {
+        wrapper.addEventListener('mouseenter', () => {
+          wrapper.style.transform = 'scale(1.02)';
+        });
+
+        wrapper.addEventListener('mouseleave', () => {
+          wrapper.style.transform = 'scale(1)';
+        });
+      });
+    }
+  }
+
+  // Initialize on DOM ready
+  if (document.querySelector('.skill-bar-fill')) {
+    new SkillsManager();
+  }
+
+  if (document.querySelector('.timeline-wrapper')) {
+    new TimelineAnimator();
+  }
+
+  /**
+   * Add keyframe animation for skill tag click
+   */
+  if (!document.querySelector('style[data-skill-animations]')) {
+    const styleSheet = document.createElement('style');
+    styleSheet.setAttribute('data-skill-animations', 'true');
+    styleSheet.textContent = `
+      @keyframes skillTagClick {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.15); }
+        100% { transform: scale(1); }
+      }
+
+      @keyframes slideInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .skill-tag {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .timeline-wrapper {
+        transition: all 0.3s ease;
+      }
+    `;
+    document.head.appendChild(styleSheet);
+  }
+})();
