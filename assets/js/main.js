@@ -280,6 +280,7 @@
         category: el.querySelector('.w-ctegory')?.textContent || 'General',
         date: el.querySelector('.w-date')?.textContent || '2024',
         image: el.querySelector('.work-img img')?.src || '',
+        description: el.querySelector('.w-ctegory')?.textContent || 'General Certificate',
         link: el.querySelector('a[data-gallery]')?.href || '#',
         element: el
       }));
@@ -291,6 +292,7 @@
         category: el.querySelector('.w-ctegory')?.textContent || 'General',
         date: el.querySelector('.w-date')?.textContent || '2024',
         image: el.querySelector('.work-img img')?.src || '',
+        description: el.querySelector('.w-ctegory')?.textContent || 'General Achievement',
         link: el.querySelector('a[data-gallery]')?.href || '#',
         element: el
       }));
@@ -399,7 +401,7 @@
         </div>
       `).join('');
 
-      this.setupReadMoreButtons();
+      setTimeout(() => this.setupReadMoreButtons(), 50);
     }
 
     setupReadMoreButtons() {
@@ -410,24 +412,19 @@
 
         if (!description || !button) return;
 
-        const checkOverflow = () => {
-          if (description.scrollHeight > description.clientHeight) {
-            button.style.display = 'inline-block';
-            button.textContent = 'Read More';
-          } else {
-            button.style.display = 'none';
-          }
-        };
+        const fullText = description.textContent.trim();
 
-        checkOverflow();
+        // Show button if text has any meaningful content (more than 20 chars)
+        if (fullText.length > 20) {
+          button.style.display = 'block';
+          button.textContent = 'Read More';
 
-        button.addEventListener('click', (e) => {
-          e.preventDefault();
-          description.classList.toggle('expanded');
-          button.textContent = description.classList.contains('expanded') ? 'Read Less' : 'Read More';
-        });
-
-        window.addEventListener('resize', checkOverflow);
+          button.addEventListener('click', (e) => {
+            e.preventDefault();
+            description.classList.toggle('expanded');
+            button.textContent = description.classList.contains('expanded') ? 'Read Less' : 'Read More';
+          });
+        }
       });
     }
 
@@ -451,7 +448,7 @@
    * GitHub Projects Fetcher
    */
   class GitHubProjectsFetcher {
-    constructor(username = 'Siva-Dev-001', maxProjects = 6) {
+    constructor(username = 'Siva-Dev-001', maxProjects = 10) {
       this.username = username;
       this.maxProjects = maxProjects;
       this.init();
@@ -467,9 +464,19 @@
     }
 
     async fetchRepos() {
-      const response = await fetch(`https://api.github.com/users/${this.username}/repos?sort=updated&per_page=${this.maxProjects}`);
+      const response = await fetch(`https://api.github.com/users/${this.username}/repos?sort=created&per_page=${this.maxProjects}&page=1`);
+      const repos = await response.json();
+      const excludedRepos = [
+        'Portfolio',
+        'shapes-fitness',
+        'Siva-Dev-001'
+      ];
+
+      const filteredRepos = repos.filter(
+        repo => !repo.fork && !excludedRepos.includes(repo.name)
+      );
       if (!response.ok) throw new Error('Failed to fetch');
-      return await response.json();
+      return filteredRepos;
     }
 
     displayProjects(repos) {
@@ -485,6 +492,7 @@
       if (!projectsContainer) {
         projectsContainer = document.createElement('div');
         projectsContainer.className = 'github-projects';
+        projectsContainer.className = 'row';
         projectsContainer.style.cssText = `
           display: contents;
         `;
@@ -522,7 +530,12 @@
                   </a>
                 </div>
                 <div class="post-date">
-                  <span class="bi bi-star"></span> ${repo.stargazers_count}
+                   <span class="bi bi-calendar"></span>
+                    ${new Date(repo.pushed_at).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                    })}
                 </div>
               </div>
             </div>
@@ -535,7 +548,7 @@
 
   // Initialize GitHub Projects Fetcher
   if (document.querySelector('#blog')) {
-    new GitHubProjectsFetcher('Siva-Dev-001', 3);
+    new GitHubProjectsFetcher('Siva-Dev-001', 12);
   }
   class SkillsManager {
     constructor() {
