@@ -385,7 +385,8 @@
             <div class="item-date">
               <i class="bi bi-calendar"></i> ${item.date}
             </div>
-            <p class="item-description">${item.description || item.category}</p>
+            <p class="item-description" data-full-text="${(item.description || item.category).replace(/"/g, '&quot;')}">${item.description || item.category}</p>
+            <button class="read-more-btn" style="display: none;">Read More</button>
             <div class="item-meta">
               <div class="item-category">
                 <span class="item-tag">${item.category}</span>
@@ -397,6 +398,37 @@
           </div>
         </div>
       `).join('');
+
+      this.setupReadMoreButtons();
+    }
+
+    setupReadMoreButtons() {
+      const cards = document.querySelectorAll('.item-card');
+      cards.forEach(card => {
+        const description = card.querySelector('.item-description');
+        const button = card.querySelector('.read-more-btn');
+
+        if (!description || !button) return;
+
+        const checkOverflow = () => {
+          if (description.scrollHeight > description.clientHeight) {
+            button.style.display = 'inline-block';
+            button.textContent = 'Read More';
+          } else {
+            button.style.display = 'none';
+          }
+        };
+
+        checkOverflow();
+
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          description.classList.toggle('expanded');
+          button.textContent = description.classList.contains('expanded') ? 'Read Less' : 'Read More';
+        });
+
+        window.addEventListener('resize', checkOverflow);
+      });
     }
 
     observeItems() {
@@ -416,8 +448,95 @@
   }
 
   /**
-   * Enhanced Skills Section - Interactive Features
+   * GitHub Projects Fetcher
    */
+  class GitHubProjectsFetcher {
+    constructor(username = 'Siva-Dev-001', maxProjects = 6) {
+      this.username = username;
+      this.maxProjects = maxProjects;
+      this.init();
+    }
+
+    async init() {
+      try {
+        const repos = await this.fetchRepos();
+        this.displayProjects(repos);
+      } catch (error) {
+        console.log('GitHub projects will display static content');
+      }
+    }
+
+    async fetchRepos() {
+      const response = await fetch(`https://api.github.com/users/${this.username}/repos?sort=updated&per_page=${this.maxProjects}`);
+      if (!response.ok) throw new Error('Failed to fetch');
+      return await response.json();
+    }
+
+    displayProjects(repos) {
+      const blogContainer = document.querySelector('#blog .row');
+      if (!blogContainer) return;
+
+      // Find existing project cards
+      const existingCards = blogContainer.querySelectorAll('.card-blog');
+      if (existingCards.length >= this.maxProjects) return; // Don't override if already populated
+
+      // Get or create projects container
+      let projectsContainer = blogContainer.querySelector('.github-projects');
+      if (!projectsContainer) {
+        projectsContainer = document.createElement('div');
+        projectsContainer.className = 'github-projects';
+        projectsContainer.style.cssText = `
+          display: contents;
+        `;
+        blogContainer.appendChild(projectsContainer);
+      }
+
+      repos.forEach((repo, idx) => {
+        if (idx < this.maxProjects) {
+          const card = document.createElement('div');
+          card.className = 'col-md-4';
+          card.innerHTML = `
+            <div class="card card-blog github-project-card">
+              <div class="card-img" style="background: linear-gradient(135deg, #0078ff20, #7800ff20); height: 150px; display: flex; align-items: center; justify-content: center;">
+                <div style="text-align: center; color: #0078ff;">
+                  <i class="bi bi-github" style="font-size: 2.5rem; display: block; margin-bottom: 0.5rem;"></i>
+                  <span style="font-size: 0.9rem; font-weight: 600;">${repo.language || 'Project'}</span>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="card-category-box">
+                  <div class="card-category">
+                    <h6 class="category">${repo.language || 'GitHub'}</h6>
+                  </div>
+                </div>
+                <h3 class="card-title"><a href="${repo.html_url}" target="_blank">${repo.name}</a></h3>
+                <p class="card-description">
+                  ${repo.description || 'No description provided'}
+                </p>
+              </div>
+              <div class="card-footer">
+                <div class="post-author">
+                  <a href="${repo.owner.html_url}" target="_blank">
+                    <img src="${repo.owner.avatar_url}" alt="GitHub" class="avatar rounded-circle">
+                    <span class="author">${repo.owner.login}</span>
+                  </a>
+                </div>
+                <div class="post-date">
+                  <span class="bi bi-star"></span> ${repo.stargazers_count}
+                </div>
+              </div>
+            </div>
+          `;
+          projectsContainer.appendChild(card);
+        }
+      });
+    }
+  }
+
+  // Initialize GitHub Projects Fetcher
+  if (document.querySelector('#blog')) {
+    new GitHubProjectsFetcher('Siva-Dev-001', 3);
+  }
   class SkillsManager {
     constructor() {
       this.skillBars = document.querySelectorAll('.skill-bar-fill');
@@ -576,6 +695,11 @@
 
   if (document.querySelector('.timeline-wrapper')) {
     new TimelineAnimator();
+  }
+
+  // Initialize Portfolio Manager for All Achievements section
+  if (document.querySelector('.all-items-grid')) {
+    new PortfolioManager();
   }
 
   /**
