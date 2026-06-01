@@ -202,6 +202,71 @@
   });
 
   /**
+   * Testimonials Read More/Less
+   */
+  function setupTestimonialReadMore() {
+    const testimonialBoxes = document.querySelectorAll('.testimonial-box');
+    testimonialBoxes.forEach(box => {
+      const description = box.querySelector('.description');
+      if (!description) return;
+
+      const fullText = description.textContent.trim();
+
+      // Create and insert read more button
+      let button = box.querySelector('.read-more-testimonial');
+      if (!button) {
+        button = document.createElement('button');
+        button.className = 'read-more-testimonial';
+        button.textContent = 'Read More';
+        description.parentNode.insertBefore(button, description.nextSibling);
+      }
+
+      // Check if text overflows 2 lines
+      const checkOverflow = () => {
+        const clone = description.cloneNode(true);
+        clone.style.position = 'absolute';
+        clone.style.visibility = 'hidden';
+        clone.style.height = 'auto';
+        clone.style.webkitLineClamp = 'unset';
+        description.parentNode.appendChild(clone);
+
+        const fullHeight = clone.scrollHeight;
+        const clampedHeight = description.scrollHeight;
+        description.parentNode.removeChild(clone);
+
+        if (fullHeight > clampedHeight + 2) {
+          button.style.display = 'inline-block';
+        } else {
+          button.style.display = 'none';
+        }
+      };
+
+      checkOverflow();
+
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        description.classList.toggle('expanded');
+        button.textContent = description.classList.contains('expanded') ? 'Read Less' : 'Read More';
+      });
+
+      window.addEventListener('resize', checkOverflow);
+    });
+  }
+
+  // Initialize on DOM ready and after swiper updates
+  if (document.querySelector('.testimonial-box')) {
+    setupTestimonialReadMore();
+
+    // Re-setup when swiper slides change
+    const swiper = document.querySelector('.testimonials-slider').swiper;
+    if (swiper) {
+      swiper.on('slideChange', () => {
+        setTimeout(setupTestimonialReadMore, 100);
+      });
+    }
+  }
+
+  /**
    * Portfolio details slider
    */
   new Swiper('.portfolio-details-slider', {
